@@ -15,7 +15,7 @@ class GameScene extends Phaser.Scene {
     this.cursor;
     this.playerSpeed = 100;
     this.socket = null;
-    this.playerId = "player1"; // Assign a unique player ID
+    this.playerId = "player"+ Math.floor(Math.random() * 11);; // Assign a unique player ID
   }
 
   // load the assets
@@ -64,7 +64,13 @@ class GameScene extends Phaser.Scene {
 
     this.socket.onopen = () => {
       console.log("[open] Connection established");
-      this.socket.send(`Player connected: ${this.playerId}`);
+      const playerData = {
+        playerId: this.playerId,
+        x: this.player.x,
+        y: this.player.y,
+      };
+      
+      this.socket.send(JSON.stringify(playerData));
     };
 
     this.socket.onmessage = (event) => {
@@ -77,8 +83,9 @@ class GameScene extends Phaser.Scene {
 
   // Update the position of the remote player based on received data
   updateRemotePlayer(data) {
-    if (this.remotePlayer) {
+    if (data.playerId !== this.playerId) {
       this.remotePlayer.setPosition(data.x, data.y);
+      console.log(data);
     }
   }
 
@@ -116,6 +123,8 @@ class GameScene extends Phaser.Scene {
         y: this.player.y,
       };
       this.socket.send(JSON.stringify(playerData));
+
+      console.log(playerData);
     }
   }
 }
