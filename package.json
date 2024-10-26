@@ -12,6 +12,8 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "phaser": "^3.60.0"
+    "nanoid": "^5.0.7",
+    "phaser": "^3.60.0",
+    "socket.io-client": "^4.8.1"
   }
 }
