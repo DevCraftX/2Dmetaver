@@ -7,7 +7,7 @@ describe('Authentication API Integration Tests', () => {
   // Test the signup endpoint for valid data
   test('POST /signup should return success message', async () => {
     const response = await request(baseURL)
-      .post('/signup')
+      .post('/api/auth/signup')
       .send({ username: 'testuser', password: 'testpass' })
       .set('Content-Type', 'application/json');
 
@@ -18,7 +18,7 @@ describe('Authentication API Integration Tests', () => {
   // Test the login endpoint for valid data
   test('POST /login should return success message', async () => {
     const response = await request(baseURL)
-      .post('/login')
+      .post('/api/auth/login')
       .send({ username: 'testuser', password: 'testpass' })
       .set('Content-Type', 'application/json');
 
@@ -29,7 +29,7 @@ describe('Authentication API Integration Tests', () => {
   // Test if GET request to /signup returns 405 Method Not Allowed
   test('GET /signup should return 405 Method Not Allowed', async () => {
     const response = await request(baseURL)
-      .get('/signup')
+      .get('/api/auth/signup')
       .set('Content-Type', 'application/json');
 
     expect(response.status).toBe(405);  // Method Not Allowed
@@ -38,7 +38,7 @@ describe('Authentication API Integration Tests', () => {
   // Test if GET request to /login returns 405 Method Not Allowed
   test('GET /login should return 405 Method Not Allowed', async () => {
     const response = await request(baseURL)
-      .get('/login')
+      .get('/api/auth/login')
       .set('Content-Type', 'application/json');
 
     expect(response.status).toBe(405);  // Method Not Allowed
@@ -54,7 +54,7 @@ describe('Authentication API Integration Tests', () => {
     
     // Now try to signup with the same username
     const response = await request(baseURL)
-      .post('/signup')
+      .post('/api/auth/signup')
       .send({ username: 'existinguser', password: 'newpassword' })
       .set('Content-Type', 'application/json');
 
@@ -66,7 +66,7 @@ describe('Authentication API Integration Tests', () => {
   // Test login with incorrect password
   test('POST /login with incorrect password should return error message', async () => {
     const response = await request(baseURL)
-      .post('/login')
+      .post('/api/auth/login')
       .send({ username: 'testuser', password: 'wrongpassword' })
       .set('Content-Type', 'application/json');
 
