@@ -60,7 +60,7 @@ class GameScene extends Phaser.Scene {
     this.cursor = this.input.keyboard.createCursorKeys();
 
     // Initialize the WebSocket connection
-    this.socket = new WebSocket("ws://10.145.107.131:8080/ws");
+    this.socket = new WebSocket("ws://localhost:8080/ws");
 
     this.socket.onopen = () => {
       console.log("[open] Connection established");
